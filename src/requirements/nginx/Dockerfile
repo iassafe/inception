@@ -6,7 +6,7 @@ FROM debian:11
 
 # Updates package lists and installs Nginx and OpenSSL
 RUN apt update && apt upgrade -y && apt install -y nginx openssl
-
+ 
 # Generate SSL Certificate: Creates a self-signed SSL certificate and key for secure HTTPS connections
 RUN openssl req -x509 -nodes -out /etc/nginx/ssl_cer.crt -keyout /etc/nginx/ssl_cer_key.key -subj "/C=Ma/L=khouribga/CN=iassafe/UID=iassafe"
 

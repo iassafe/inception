@@ -1,0 +1,64 @@
+# version: "3.8"
+
+networks:
+  main_network:
+
+
+volumes:
+  mariadb_v:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/hed-dyb/data/mariadb
+      o: bind
+
+  wordpress_v:
+    driver: local
+    driver_opts:
+      type: none #no No specific filesystem type - (other : tmpfs, nfs, cifs)
+      device: /home/hed-dyb/data/wordpress
+      o: bind   #Mount options. bind means to bind-mount a directory from the host. (others : ro, rw, noexec ...)
+
+
+
+
+services:
+
+   #nginx ------------------------------- 
+  nginx:
+    build: requirements/nginx/
+    container_name: nginx
+    ports:
+      - "443:443"
+    depends_on:
+      - wordpress
+    networks:
+      - main_network
+    volumes:
+      - wordpress_v:/var/www/html
+    restart: on-failure
+
+
+   #mariadb ------------------------------- 
+  mariadb:
+    build: requirements/mariadb/
+    container_name: mariadb
+    env_file: .env
+    networks:
+      - main_network
+    volumes:
+      - mariadb_v:/var/lib/mysql
+    restart: on-failure
+
+   #wordpress ------------------------------- 
+  wordpress:
+    build: requirements/wordpress/
+    container_name: wordpress
+    env_file: .env
+    depends_on:
+      - mariadb
+    networks:
+      - main_network
+    volumes:
+      - wordpress_v:/var/www/html
+    restart: on-failure

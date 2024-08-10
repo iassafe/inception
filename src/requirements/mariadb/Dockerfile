@@ -1,0 +1,19 @@
+
+
+
+
+
+FROM debian:11
+
+RUN apt -y update && apt -y upgrade
+
+RUN apt install -y mariadb-server
+
+EXPOSE 3306
+
+COPY tools/script.sh /
+
+RUN chmod +x script.sh
+
+
+ENTRYPOINT ["./script.sh"]
