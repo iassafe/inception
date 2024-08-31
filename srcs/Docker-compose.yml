@@ -1,3 +1,4 @@
+
 # version: "3.8"
 
 networks:
@@ -9,14 +10,14 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/hed-dyb/data/mariadb
+      device: /Users/iassafe/Desktop/inception/mariadb
       o: bind
 
   wordpress_v:
     driver: local
     driver_opts:
       type: none #no No specific filesystem type - (other : tmpfs, nfs, cifs)
-      device: /home/hed-dyb/data/wordpress
+      device: /Users/iassafe/Desktop/inception/wordpress
       o: bind   #Mount options. bind means to bind-mount a directory from the host. (others : ro, rw, noexec ...)
 
 
