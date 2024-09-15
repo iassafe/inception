@@ -63,3 +63,8 @@ services:
     volumes:
       - wordpress_v:/var/www/html
     restart: on-failure
+
+
+
+
+
