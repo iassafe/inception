@@ -16,16 +16,14 @@ volumes:
   wordpress_v:
     driver: local
     driver_opts:
-      type: none #no No specific filesystem type - (other : tmpfs, nfs, cifs)
+      type: none
       device: /Users/iassafe/Desktop/inception/wordpress
-      o: bind   #Mount options. bind means to bind-mount a directory from the host. (others : ro, rw, noexec ...)
-
+      o: bind
 
 
 
 services:
 
-   #nginx ------------------------------- 
   nginx:
     build: requirements/nginx/
     container_name: nginx
@@ -40,7 +38,6 @@ services:
     restart: on-failure
 
 
-   #mariadb ------------------------------- 
   mariadb:
     build: requirements/mariadb/
     container_name: mariadb
@@ -51,7 +48,6 @@ services:
       - mariadb_v:/var/lib/mysql
     restart: on-failure
 
-   #wordpress ------------------------------- 
   wordpress:
     build: requirements/wordpress/
     container_name: wordpress
