@@ -1,18 +1,18 @@
 # version: "3.8"
 
 networks:
-  main_network:
+  my_network:
 
 
 volumes:
-  mariadb_v:
+  volume_mariadb:
     driver: local
     driver_opts:
       type: none
       device: /home/iassafe/data/mariadb
       o: bind
 
-  wordpress_v:
+  volume_wordpress:
     driver: local
     driver_opts:
       type: none
@@ -23,6 +23,27 @@ volumes:
 
 services:
 
+
+  mariadb:
+    build: requirements/mariadb/
+    container_name: mariadb
+    networks:
+      - my_network
+    volumes:
+      - volume_mariadb:/var/lib/mysql
+    env_file: .env
+
+  wordpress:
+    build: requirements/wordpress/
+    container_name: wordpress
+    depends_on:
+      - mariadb
+    networks:
+      - my_network
+    volumes:
+      - volume_wordpress:/var/www/html
+    env_file: .env
+
   nginx:
     build: requirements/nginx/
     container_name: nginx
@@ -31,30 +52,6 @@ services:
     depends_on:
       - wordpress
     networks:
-      - main_network
+      - my_network
     volumes:
-      - wordpress_v:/var/www/html
-    restart: on-failure
-
-
-  mariadb:
-    build: requirements/mariadb/
-    container_name: mariadb
-    env_file: .env
-    networks:
-      - main_network
-    volumes:
-      - mariadb_v:/var/lib/mysql
-    restart: on-failure
-
-  wordpress:
-    build: requirements/wordpress/
-    container_name: wordpress
-    env_file: .env
-    depends_on:
-      - mariadb
-    networks:
-      - main_network
-    volumes:
-      - wordpress_v:/var/www/html
-    restart: on-failure
+      - volume_wordpress:/var/www/html
