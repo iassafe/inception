@@ -14,22 +14,23 @@ cd /var/www/html
 
     # Create wp-config.php file with database details
     wp config create --allow-root \
-            --dbname=$MARIADB_DATABASE \
-            --dbuser=$WP_ADMIN_LOGIN \
-            --dbpass=$WP_ADMIN_PASSWORD \
-            --dbhost=$DB_HOST
+            --dbname=$MD_DATABASE \
+            --dbuser=root \
+            --dbpass=$ROOT_PASSWORD \
+            --dbhost=$HOST
 
+wp db create --allow-root
     # Install WordPress core
     wp core install --allow-root \
-            --url=$WP_URL \
-            --title=$WP_TITLE \
-            --admin_user=$WP_ADMIN_LOGIN \
-            --admin_password=$WP_ADMIN_PASSWORD \
-            --admin_email=$WP_ADMIN_EMAIL
+            --url=$URL \
+            --title=$TITLE \
+            --admin_user=$ADMIN_LOGIN \
+            --admin_password=$ADMIN_PASSWORD \
+            --admin_email=$ADMIN_EMAIL
 
     # Create a new WordPress user
-    wp user create --allow-root "$WP_USER_LOGIN" "$WP_USER_EMAIL" \
-            --user_pass="$WP_USER_PASSWORD" \
+    wp user create --allow-root "$USER_LOGIN" "$USER_EMAIL" \
+            --user_pass="$USER_PASSWORD" \
             --role=author
 
 # Stop PHP-FPM service and run it in the foreground
