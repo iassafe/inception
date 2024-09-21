@@ -14,7 +14,7 @@ cd /var/www/html
 
     wp config create --allow-root \
             --dbname=$DATABASE \
-            --dbuser=root \
+            --dbuser=$DB_USER \
             --dbpass=$PASSWORD \
             --dbhost=$HOST
 
