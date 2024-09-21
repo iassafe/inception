@@ -5,9 +5,8 @@ RUN apt update -y && \
     apt upgrade -y && \
     apt install -y \
     mariadb-client \
-    php7.4 \
-    php7.4-mysql \
-    php7.4-fpm \
+    php-fpm \
+    php-mysqli \
     wget
 
 # Download the WP-CLI tool

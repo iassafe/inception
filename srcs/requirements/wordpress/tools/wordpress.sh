@@ -12,25 +12,24 @@ cd /var/www/html
 # Download WordPress core files if not already present
     wp core download --allow-root
 
-    # Create wp-config.php file with database details
     wp config create --allow-root \
-            --dbname=$MD_DATABASE \
+            --dbname=$DATABASE \
             --dbuser=root \
-            --dbpass=$ROOT_PASSWORD \
+            --dbpass=$PASSWORD \
             --dbhost=$HOST
 
-wp db create --allow-root
-    # Install WordPress core
+    # Install WordPress core  
+    wp db create --allow-root 
     wp core install --allow-root \
             --url=$URL \
             --title=$TITLE \
             --admin_user=$ADMIN_LOGIN \
-            --admin_password=$ADMIN_PASSWORD \
+            --admin_password=$PASSWORD \
             --admin_email=$ADMIN_EMAIL
 
     # Create a new WordPress user
     wp user create --allow-root "$USER_LOGIN" "$USER_EMAIL" \
-            --user_pass="$USER_PASSWORD" \
+            --user_pass="$PASSWORD" \
             --role=author
 
 # Stop PHP-FPM service and run it in the foreground

@@ -1,28 +1,6 @@
 # version: "3.8"
 
-networks:
-  my_network:
-
-
-volumes:
-  volume_mariadb:
-    driver: local
-    driver_opts:
-      type: none
-      device: /home/iassafe/data/mariadb
-      o: bind
-
-  volume_wordpress:
-    driver: local
-    driver_opts:
-      type: none
-      device: /home/iassafe/data/wordpress
-      o: bind
-
-
-
 services:
-
 
   mariadb:
     build: requirements/mariadb/
@@ -55,3 +33,21 @@ services:
       - my_network
     volumes:
       - volume_wordpress:/var/www/html
+
+networks:
+  my_network:
+
+volumes:
+  volume_mariadb:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/iassafe/data/mariadb
+      o: bind
+
+  volume_wordpress:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/iassafe/data/wordpress
+      o: bind
