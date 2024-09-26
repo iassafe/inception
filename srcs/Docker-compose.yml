@@ -39,14 +39,12 @@ networks:
 
 volumes:
   volume_mariadb:
-    driver: local
     driver_opts:
       type: none
       device: /home/iassafe/data/mariadb
       o: bind
 
   volume_wordpress:
-    driver: local
     driver_opts:
       type: none
       device: /home/iassafe/data/wordpress
